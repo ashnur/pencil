@@ -1,0 +1,50 @@
+{
+  "name": "pencil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-sass": "node-sass -r --output-style compressed --importer node_modules/node-sass-import src/sass/main.sass app/css/main.css",
+    "build-js": "browserify  -t [ babelify --presets [ node6 ] --plugins [ datascript  ] ] -t brfs src/index.js -o js/bundle.js",
+    "watch-sass": "node-sass -w -r --output-style expanded --importer node_modules/node-sass-import src/sass/main.sass app/css/main.css &",
+    "watch-js": "budo src/index.js:index.html -p 9967 --serve app/js/bundle.js --live=*.{js,html,css} --pushstate -- -t [ babelify --presets [ node6 ] --plugins [ datascript ] ] -t brfs ",
+    "production": "parallelshell \"npm run build-sass\" \"npm run build-js\"",
+    "development": "parallelshell \"npm run watch-sass\" \"npm run watch-js\"",
+    "publish-ci": "npm run production && git commit -a -m 'publish-ci' && git push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "datascript-mori": "^0.16.0",
+    "global": "^4.3.1",
+    "history": "^4.2.0",
+    "js-csp": "^0.7.0",
+    "js-string-escape": "^1.0.1",
+    "liberate": "^1.0.1",
+    "lscache": "^1.0.7",
+    "query-string": "^4.2.3",
+    "raf": "^3.3.0",
+    "ramda": "^0.22.1",
+    "transducers-js": "^0.4.174",
+    "transit-js": "^0.8.846",
+    "validator": "^6.0.0",
+    "vdom-thunk": "^3.0.0",
+    "virtual-dom": "^2.1.1",
+    "xhr": "^2.2.2"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.14.0",
+    "babel-plugin-datascript": "^0.2.0",
+    "babel-preset-node6": "^11.0.0",
+    "babelify": "^7.3.0",
+    "brfs": "^1.4.3",
+    "budo": "^9.2.0",
+    "bulma": "^0.2.1",
+    "node-sass": "^3.10.0",
+    "parallelshell": "^2.0.0",
+    "sass-module-importer": "^1.2.1"
+  }
+}
